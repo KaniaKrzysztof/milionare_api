@@ -11,9 +11,9 @@ use dotenv::dotenv;
 use milionares_api::db;
 use milionares_api::download_and_upload;
 use milionares_api::question;
-use std::env;
-
+use rocket::http::RawStr;
 use rocket_contrib::json::Json;
+use std::env;
 
 #[get("/api")]
 fn api() -> Json<Vec<question::Question>> {
@@ -26,7 +26,17 @@ fn api() -> Json<Vec<question::Question>> {
 
 #[get("/")]
 fn index() -> String {
-    env::var("test").expect("asd")
+    "Hello millionare!".to_string()
+}
+
+#[get("/upload?<password>")]
+fn upload(password: &RawStr) -> String {
+    let upload_pass = env::var("UPLOAD_PASS").expect("upload password env error");
+    if upload_pass == password.to_string() {
+        return format!("dziala {}", password.to_string());
+    } else {
+        return format!("nie dziala {}", password.to_string());
+    }
 }
 
 fn main() {
@@ -38,5 +48,6 @@ fn main() {
     rocket::ignite()
         .mount("/", routes![api])
         .mount("/", routes![index])
+        .mount("/", routes![upload])
         .launch();
 }
