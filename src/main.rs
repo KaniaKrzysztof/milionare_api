@@ -33,15 +33,8 @@ fn index() -> String {
 fn upload(password: &RawStr) -> String {
     let upload_pass = env::var("UPLOAD_PASS").expect("upload password env error");
     if upload_pass == password.to_string() {
-        let mut client = match db::get_db_client() {
-            Ok(v) => v,
-            Err(e) => return format!("db conn error: {}", e),
-        };
-
-        let val = client.query("SELECT * FROM test", &[]).unwrap();
-        let a = val.first().unwrap();
-        let b: i32 = a.get(0);
-        return format!("{}", b);
+        let _ = download_and_upload::fill_db_with_questions();
+        return "upload sucess".to_string();
     } else {
         return "upload failed".to_string();
     }
@@ -49,10 +42,6 @@ fn upload(password: &RawStr) -> String {
 
 fn main() {
     dotenv().ok();
-    // download_and_upload::download_questions();
-
-    // let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-
     rocket::ignite()
         .mount("/", routes![api])
         .mount("/", routes![index])

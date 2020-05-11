@@ -3,7 +3,7 @@ use crate::jparse;
 use reqwest;
 use reqwest::Error;
 
-pub fn download_questions() -> Result<(), Error> {
+pub fn fill_db_with_questions() -> Result<(), Error> {
     let amount = 50;
 
     for difficulty in crate::question::DIFFICULTIES_ARRAY.iter() {
