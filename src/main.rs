@@ -33,9 +33,17 @@ fn index() -> String {
 fn upload(password: &RawStr) -> String {
     let upload_pass = env::var("UPLOAD_PASS").expect("upload password env error");
     if upload_pass == password.to_string() {
-        return format!("dziala {}", password.to_string());
+        let mut client = match db::get_db_client() {
+            Ok(v) => v,
+            Err(e) => return format!("db conn error: {}", e),
+        };
+
+        let val = client.query("SELECT * FROM test", &[]).unwrap();
+        let a = val.first().unwrap();
+        let b: i32 = a.get(0);
+        return format!("{}", b);
     } else {
-        return format!("nie dziala {}", password.to_string());
+        return "upload failed".to_string();
     }
 }
 
