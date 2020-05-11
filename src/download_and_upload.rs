@@ -33,7 +33,7 @@ fn upload_question_to_db(
     let t = db_client.execute(
         "
         INSERT INTO question (
-            content, incorrect_answers, correct_answer, difficulty)
+            question, incorrect_answers, correct_answer, difficulty)
             VALUES ($1, $2, $3, $4);
     ",
         &[

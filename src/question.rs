@@ -36,7 +36,7 @@ pub fn get_questions(db_client: &mut postgres::Client) -> Result<Vec<Question>, 
     for question_difficulty in DIFFICULTIES_ARRAY.iter() {
         let amount: i64 = 4;
         for row in db_client.query(
-            "SELECT id, content, incorrect_answers, correct_answer, difficulty FROM question WHERE question.difficulty = $1 ORDER BY random() LIMIT $2 ",
+            "SELECT id, question, incorrect_answers, correct_answer, difficulty FROM question WHERE question.difficulty = $1 ORDER BY random() LIMIT $2 ",
             &[&question_difficulty.as_str(), &amount]
             )? {
             let question = Question {
