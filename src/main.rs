@@ -11,7 +11,7 @@ use dotenv::dotenv;
 use milionares_api::db;
 use milionares_api::download_and_upload;
 use milionares_api::question;
-// use std::env;
+use std::env;
 
 use rocket_contrib::json::Json;
 
@@ -25,8 +25,8 @@ fn api() -> Json<Vec<question::Question>> {
 }
 
 #[get("/")]
-fn index() -> &'static str {
-    "Hello, millionare!"
+fn index() -> String {
+    env::var("test").expect("asd")
 }
 
 fn main() {
