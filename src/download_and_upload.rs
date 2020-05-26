@@ -43,8 +43,5 @@ fn upload_question_to_db(
             &question_data.difficulty,
         ],
     )?;
-
-    dbg!(t);
-
     Ok(())
 }

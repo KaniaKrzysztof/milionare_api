@@ -1,11 +1,8 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 #[macro_use]
 extern crate rocket;
-// extern crate dotenv;
-// extern crate postgres;
 extern crate reqwest;
 extern crate serde;
-// extern crate rocket_contrib;
 
 use dotenv::dotenv;
 use milionares_api::db;
