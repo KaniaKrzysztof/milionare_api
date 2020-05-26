@@ -342,3 +342,10 @@ pub mod download_and_upload;
 pub mod jparse;
 pub mod question;
 ```
+
+# Struktura bazy danych
+
+W naszej bazie danych znajduje się jedna tabela ```question``` w której znajdują się pobrane pytania, które są następnie losowane do zewnętrznych aplikacji.
+
+Schemat danych tabeli ```question```:
+![Question schema](https://github.com/KaniaKrzysztof/milionare_api/blob/master/db_schema.png)
