@@ -30,7 +30,7 @@ fn upload_question_to_db(
     question_data: &crate::jparse::QuestionFromJson,
     db_client: &mut postgres::Client,
 ) -> Result<(), postgres::Error> {
-    let t = db_client.execute(
+    db_client.execute(
         "
         INSERT INTO question (
             question, incorrect_answers, correct_answer, difficulty)
